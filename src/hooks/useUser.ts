@@ -1,21 +1,26 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import type { User } from '@supabase/supabase-js'; // Add this line
 
 const useUser = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null); // Fix: add User | null
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const session = supabase.auth.session();
-    setUser(session?.user ?? null);
-    setLoading(false);
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      setUser(data?.user ?? null);
+      setLoading(false);
+    };
 
-    const { data: subscription } = supabase.auth.onAuthStateChange((_, session) => {
+    getUser();
+
+    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
 
     return () => {
-      subscription?.unsubscribe();
+      subscription?.subscription?.unsubscribe();
     };
   }, []);
 
