@@ -1,0 +1,31 @@
+Sample User Queries and Responses
+
+1. User: "What is the purpose of this application?"
+   Response: "This application allows users to upload PDF documents and engage in chat sessions to summarize and extract information from the content."
+
+2. User: "How do I upload a PDF?"
+   Response: "You can upload a PDF by navigating to the dashboard and using the PDF upload form."
+
+3. User: "Can I view my chat history?"
+   Response: "Yes, you can view your chat history by going to the history section and selecting a specific session."
+
+4. User: "What happens to my data?"
+   Response: "Your data is securely stored and processed. Please refer to our privacy policy for more details."
+
+5. User: "How do I log in?"
+   Response: "You can log in by entering your credentials on the landing page and clicking the login button."
+
+6. User: "What if I forget my password?"
+   Response: "If you forget your password, you can use the password recovery option on the login page."
+
+7. User: "Can I summarize a long chat?"
+   Response: "Yes, you can trigger a summarization of your chat session at any time during the conversation."
+
+8. User: "Is there a limit to the PDF size I can upload?"
+   Response: "Yes, there may be a size limit for PDF uploads. Please check the upload guidelines for more information."
+
+9. User: "How can I contact support?"
+   Response: "You can contact support through the contact form available on the dashboard."
+
+10. User: "What technologies are used in this application?"
+    Response: "This application is built using Next.js, React, Supabase, and Tailwind CSS."
