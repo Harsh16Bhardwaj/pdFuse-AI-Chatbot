@@ -9,6 +9,7 @@ import { FiSearch, FiBookOpen, FiRepeat } from "react-icons/fi";
 import { FaRobot } from "react-icons/fa6";
 
 import Loader from "../components/Loader";
+import Image from "next/image";
 
 export default function Landing() {
   const router = useRouter();
@@ -62,7 +63,7 @@ export default function Landing() {
   // if (loading) return <Loader />;
 
   const handleGetStarted = () => {
-    router.push("/register");
+    router.push("/auth");
   };
 
   return (
@@ -80,34 +81,16 @@ export default function Landing() {
       </Head>
 
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 bg-gradient-to-r from-teal-800 to-indigo-800 text-white p-4 shadow-lg">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-3xl font-bold">PDFuse</h1>
-          <div className="space-x-4">
-            <button
-              onClick={() => router.push("/")}
-              className="hover:text-teal-300 transition"
-            >
-              Login
-            </button>
-            <button
-              onClick={() => router.push("/register")}
-              className="bg-teal-500 text-white font-semibold py-2 px-4 rounded-full hover:bg-teal-400 transition"
-            >
-              Register
-            </button>
-          </div>
-        </div>
-      </nav>
 
       {/* Section 1: Hero */}
       <section className="min-h-screen flex flex-col items-center justify-center px-4 text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-teal-600 via-black to-black opacity-60 blur-3xl"></div>
+        <Image src="/logo-pdf.png" alt="logo" className="mb-8" width={100} height={100}></Image>
         <motion.h1
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-5xl md:text-7xl font-extrabold drop-shadow-xl z-10"
+          className="text-5xl md:text-7xl  font-extrabold drop-shadow-xl z-10"
         >
           Make <span className="">PDF's</span> Talk Back
         </motion.h1>
@@ -443,57 +426,66 @@ export default function Landing() {
       </section>
 
       {/* Section 6: Final CTA */}
-      <section className="min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-gradient-to-br from-teal-900 via-black to-indigo-900 relative">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-teal-600 via-transparent to-transparent opacity-30 blur-3xl"></div>
+      <section className="min-h-screen flex flex-col items-center justify-center px-6 py-24 bg-gradient-to-br from-teal-900 via-black to-indigo-900 relative overflow-hidden">
+        {/* Background Blur Accent */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-teal-600 via-transparent to-transparent opacity-30 blur-3xl pointer-events-none" />
+
+        {/* Headline */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-6xl font-bold mb-8 z-10"
+          className="text-4xl md:text-5xl font-extrabold text-white mb-6 z-10 text-center"
         >
-          Ready to Upgrade How You Learn?
+          Transform Your PDFs into AI-Driven Insights
         </motion.h2>
+
+        {/* Subheadline */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl text-center z-10"
+          className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl text-center z-10"
         >
-          Every minute spent reading passively could be a chance to test
-          yourself, challenge your thinking, and grow. Let AI meet you where you
-          are — and take you further.
+          Instant summaries. Smarter learning. No friction.
         </motion.p>
+
+        {/* Feature Bullets */}
         <motion.ul
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-md md:text-lg text-gray-400 mb-10 list-disc list-inside text-center z-10"
+          className="text-md text-gray-400 mb-10 space-y-1 text-center z-10"
         >
-          <li>No credit card required</li>
-          <li>Free forever plan available</li>
-          <li>Personalized sessions from day one</li>
+          <li>⚡ No credit card needed</li>
+          <li>🎓 Personalized AI sessions</li>
+          <li>💡 Free forever plan</li>
         </motion.ul>
+
+        {/* CTA Button */}
         <motion.button
           whileHover={{
-            scale: 1.1,
-            boxShadow: "0 0 30px rgba(45,212,191,0.8)",
+            scale: 1.08,
+            boxShadow: "0 0 30px rgba(45,212,191,0.6)",
           }}
           whileTap={{ scale: 0.95 }}
           onClick={handleGetStarted}
-          className="px-10 py-5 bg-gradient-to-r from-teal-400 to-indigo-500 text-white font-semibold rounded-xl shadow-2xl text-lg hover:from-teal-300 hover:to-indigo-400 transition z-10 animate-pulse"
+          className="px-8 py-4 bg-gradient-to-r from-teal-400 to-indigo-500 text-white font-semibold rounded-xl text-lg z-10 hover:from-teal-300 hover:to-indigo-400 transition shadow-xl"
         >
-          Start Your First Session
+          Start Your Free Session
         </motion.button>
+
+        {/* Typing Effect Hint */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
           className="mt-6 text-gray-500 text-sm z-10 animate-pulse"
         >
-          ↑ AI typing...
+          AI is ready to read...
         </motion.div>
       </section>
     </div>
