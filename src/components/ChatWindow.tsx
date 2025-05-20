@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useSessionContext } from '../hooks/useSessionContext';
-import { MessageBubble } from './MessageBubble';
-import { Loader } from './Loader';
+import MessageBubble from './MessageBubble';
+import Loader from './Loader';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../redux/store/index';
 
 const ChatWindow = () => {
-  const { session } = useSessionContext();
+  // Get session from Redux store
+  const session = useSelector((state: RootState) => state.session.session);
+
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [newMessage, setNewMessage] = useState('');
 
   useEffect(() => {
     const fetchMessages = async () => {
-      // Fetch messages from the server or local storage
-      // This is a placeholder for the actual fetch logic
       const fetchedMessages = await fetch('/api/chat/message').then(res => res.json());
       setMessages(fetchedMessages);
       setLoading(false);
@@ -24,13 +25,12 @@ const ChatWindow = () => {
   const handleSendMessage = async () => {
     if (newMessage.trim() === '') return;
 
-    // Send the new message to the server
     await fetch('/api/chat/message', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ message: newMessage, sessionId: session.id }),
+      body: JSON.stringify({ message: newMessage, sessionId: session?.id }),
     });
 
     setMessages([...messages, { content: newMessage, sender: 'user' }]);

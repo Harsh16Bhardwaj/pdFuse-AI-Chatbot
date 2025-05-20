@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useSessionContext } from '../hooks/useSessionContext';
-import { PDFUpload } from '../components/PDFUpload';
-import { ChatWindow } from '../components/ChatWindow';
-import { SessionSummary } from '../components/SessionSummary';
+import  PDFUpload  from '../components/PDFUpload';
+import  ChatWindow  from '../components/ChatWindow';
+import  SessionSummary  from '../components/SessionSummary';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../redux/store/index';
 
 const Dashboard = () => {
-  const { session } = useSessionContext();
+const session = useSelector((state: RootState) => state.session.session);
   const [chatHistory, setChatHistory] = useState([]);
 
   useEffect(() => {

@@ -1,30 +1,44 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import type { User } from '@supabase/supabase-js'; // Add this line
+import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js';
 
 const useUser = () => {
-  const [user, setUser] = useState<User | null>(null); // Fix: add User | null
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser();
-      setUser(data?.user ?? null);
+      setUser(data.user ?? null);
       setLoading(false);
     };
 
     getUser();
 
-    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
+    const { data: { subscription } = { subscription: undefined } } =
+      supabase.auth.onAuthStateChange(
+        (_event: AuthChangeEvent, session: Session | null) => {
+          setUser(session?.user ?? null);
+        }
+      );
 
     return () => {
-      subscription?.subscription?.unsubscribe();
+      subscription?.unsubscribe();
     };
   }, []);
 
-  return { user, loading };
+  // Add login and register functions
+  const login = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+  };
+
+  const register = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) throw error;
+  };
+
+  return { user, loading, login, register };
 };
 
 export default useUser;
